@@ -1,0 +1,20 @@
+default:
+  broker:
+    mqtt:
+      host_url: mqtt://127.0.0.1:1883
+      topics: hello/#
+      qos:
+      protocol: mqtt
+      retain:
+
+
+development:
+
+test:
+
+staging:
+
+production:
+  broker:
+    mqtt:
+      host_url: mqtt://

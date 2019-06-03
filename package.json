@@ -1,0 +1,16 @@
+{
+  "name": "streetlights_api",
+  "description": "The Smartylighting Streetlights API allows you to remotely manage the city lights. ",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/api/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "hermesjs": "1.x",
+    "hermesjs-mqtt": "1.x",
+    "hermesjs-router": "1.x",
+    "node-yaml-config": "0.0.5"
+  }
+}

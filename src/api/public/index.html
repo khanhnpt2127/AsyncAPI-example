@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Node + Express + MongoDb example</title>
+     <link href="./bootstrap.min.css" rel="stylesheet">
+     <script src="./bootstrap.min.js"></script>
+     <script src="./jquery-3.4.1.min.js"></script>
+		<style>
+			.chessboard {
+				width: 674px; height: 674px;
+				margin: 20px;
+				border: 25px solid #333;
+			}
+			.white {
+				float: left;
+				width: 78px;
+				height: 78px;
+				background-color: #D3D3D3;
+				font-size:50px;
+				text-align:center;
+				display: table-cell;
+				vertical-align:middle;
+        border: 1px solid black;
+			}
+			.gray {
+				float: left;
+				width: 78px;
+				height: 78px;
+				background-color: #808080;
+				font-size:50px;
+				text-align:center;
+				display: table-cell;
+				vertical-align:middle;
+        border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+    <div class="container">
+      <div class="col-xs-2 col-sm-2">
+      </div>
+      <div class="col-xs-8 col-sm-8">
+    <div style="text-align: center;">
+      <h1> MQTT & Async API LED Playground </h1>
+      <h3 style="display:inline-block">Pick Color: </h3>
+      <input type="color" id="html5colorpicker" value="#ff0000" style="width:20px;display:inline-block">
+    </div>
+    <div class="chessboard">
+			<div class="white" id="0" onclick="sendMatrixData(0,0,0)"> </div>
+			<div class="gray" id="1" onclick="sendMatrixData(1,0,1)"> </div>
+			<div class="white" id="2" onclick="sendMatrixData(2,0,2)"> </div>
+			<div class="gray" id="3" onclick="sendMatrixData(3,0,3)"> </div>
+			<div class="white" id="4" onclick="sendMatrixData(4,0,4)"> </div>
+			<div class="gray" id="5" onclick="sendMatrixData(5,0,5)"> </div>
+			<div class="white" id="6" onclick="sendMatrixData(6,0,6)"> </div>
+			<div class="gray" id="7" onclick="sendMatrixData(7,0,7)"> </div>
+			<div class="white" id="8" onclick="sendMatrixData(8,1,0)"> </div>
+			<div class="gray" id="9" onclick="sendMatrixData(9,1,1)"> </div>
+			<div class="white" id="10" onclick="sendMatrixData(10,1,2)"> </div>
+			<div class="gray" id="11" onclick="sendMatrixData(11,1,3)"> </div>
+			<div class="white" id="12" onclick="sendMatrixData(12,1,4)"> </div>
+			<div class="gray" id="13" onclick="sendMatrixData(13,1,5)"> </div>
+			<div class="white" id="14" onclick="sendMatrixData(14,1,6)"> </div>
+			<div class="gray" id="15" onclick="sendMatrixData(15,1,7)"> </div>
+			<div class="white" id="16" onclick="sendMatrixData(16,2,0)"> </div>
+			<div class="gray" id="17" onclick="sendMatrixData(17,2,1)"> </div>
+			<div class="white" id="18" onclick="sendMatrixData(18,2,2)"> </div>
+			<div class="gray" id="19" onclick="sendMatrixData(19,2,3)"> </div>
+			<div class="white" id="20" onclick="sendMatrixData(20,2,4)"> </div>
+			<div class="gray" id="21" onclick="sendMatrixData(21,2,5)"> </div>
+			<div class="white" id="22" onclick="sendMatrixData(22,2,6)"> </div>
+			<div class="gray" id="23" onclick="sendMatrixData(23,2,7)"> </div>
+			<div class="white" id="24" onclick="sendMatrixData(24,3,0)"> </div>
+			<div class="gray" id="25" onclick="sendMatrixData(25,3,1)"> </div>
+			<div class="white" id="26" onclick="sendMatrixData(26,3,2)"> </div>
+			<div class="gray" id="27" onclick="sendMatrixData(27,3,3)"> </div>
+			<div class="white" id="28" onclick="sendMatrixData(28,3,4)"> </div>
+			<div class="gray" id="29" onclick="sendMatrixData(29,3,5)"> </div>
+			<div class="white" id="30" onclick="sendMatrixData(30,3,6)"> </div>
+			<div class="gray" id="31" onclick="sendMatrixData(31,3,7)"> </div>
+			<div class="white" id="32" onclick="sendMatrixData(32,4,0)"> </div>
+			<div class="gray" id="33" onclick="sendMatrixData(33,4,1)"> </div>
+			<div class="white" id="34" onclick="sendMatrixData(34,4,2)"> </div>
+			<div class="gray" id="35" onclick="sendMatrixData(35,4,3)"> </div>
+			<div class="white" id="36" onclick="sendMatrixData(36,4,4)"> </div>
+			<div class="gray" id="37" onclick="sendMatrixData(37,4,5)"> </div>
+			<div class="white" id="38" onclick="sendMatrixData(38,4,6)"> </div>
+			<div class="gray" id="39" onclick="sendMatrixData(39,4,7)"> </div>
+			<div class="white" id="40" onclick="sendMatrixData(40,5,0)"> </div>
+			<div class="gray" id="41" onclick="sendMatrixData(41,5,1)"> </div>
+			<div class="white" id="42" onclick="sendMatrixData(42,5,2)"> </div>
+			<div class="gray" id="43" onclick="sendMatrixData(43,5,3)"> </div>
+			<div class="white" id="44" onclick="sendMatrixData(44,5,4)"> </div>
+			<div class="gray" id="45" onclick="sendMatrixData(45,5,5)"> </div>
+			<div class="white" id="46" onclick="sendMatrixData(46,5,6)"> </div>
+			<div class="gray" id="47" onclick="sendMatrixData(47,5,7)"> </div>
+			<div class="white" id="48" onclick="sendMatrixData(48,6,0)"> </div>
+			<div class="gray" id="49" onclick="sendMatrixData(49,6,1)"> </div>
+			<div class="white" id="50" onclick="sendMatrixData(50,6,2)"> </div>
+			<div class="gray" id="51" onclick="sendMatrixData(51,6,3)"> </div>
+			<div class="white" id="52" onclick="sendMatrixData(52,6,4)"> </div>
+			<div class="gray" id="53" onclick="sendMatrixData(53,6,5)"> </div>
+			<div class="white" id="54" onclick="sendMatrixData(54,6,6)"> </div>
+			<div class="gray" id="55" onclick="sendMatrixData(55,6,7)"> </div>
+			<div class="white" id="56" onclick="sendMatrixData(56,7,0)"> </div>
+			<div class="gray" id="57" onclick="sendMatrixData(57,7,1)"> </div>
+			<div class="white" id="58" onclick="sendMatrixData(58,7,2)"> </div>
+			<div class="gray" id="59" onclick="sendMatrixData(59,7,3)"> </div>
+			<div class="white" id="60" onclick="sendMatrixData(60,7,4)"> </div>
+			<div class="gray" id="61" onclick="sendMatrixData(61,7,5)"> </div>
+			<div class="white" id="62" onclick="sendMatrixData(62,7,6)"> </div>
+			<div class="gray" id="63" onclick="sendMatrixData(63,7,7)"> </div>
+		</div>
+      </div>
+      <div class="col-xs-2 col-sm-2">
+      </div>
+  </div>
+	</body>
+	<script src="./client.js"></script>
+</html>
+
